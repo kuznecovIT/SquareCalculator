@@ -17,8 +17,8 @@ CREATE TABLE ProductsCategories (
 	ProductId int NOT NULL,
 	CategoryId int NOT NULL,
 	CONSTRAINT ProductsCategories_UN UNIQUE (ProductId, CategoryId),
-	CONSTRAINT ProductsCategories_CategoryFK FOREIGN KEY (CategoryId) REFERENCES internal.dbo.Categories(Id),
-        CONSTRAINT ProductsCategories_ProductFK FOREIGN KEY (ProductId) REFERENCES internal.dbo.Products(Id)
+	CONSTRAINT ProductsCategories_CategoryFK FOREIGN KEY (CategoryId) REFERENCES Categories(Id),
+        CONSTRAINT ProductsCategories_ProductFK FOREIGN KEY (ProductId) REFERENCES Products(Id)
 );
 
 INSERT INTO Categories
