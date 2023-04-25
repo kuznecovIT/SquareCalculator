@@ -44,7 +44,7 @@ namespace SquareCalculator.Library.Shapes
             if (concreteShapeType == default)
                 throw new NotImplementedException($"Type of {shapeName} not implemented. Or missing loaded assemblies for this type");
 
-            if (!concreteShapeType.TryCreateInstance(out var createdInstance, shapeParameters) && createdInstance is Shape shapeInstance) 
+            if (concreteShapeType.TryCreateInstance(out var createdInstance, shapeParameters) && createdInstance is Shape shapeInstance) 
                 return shapeInstance;
             
             throw new ShapeCreationException("Unable to create shape instance");
