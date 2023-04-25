@@ -26,7 +26,9 @@ namespace SquareCalculator.Library.Shapes
         /// </summary>
         /// <param name="shapeName">ShapeName</param>
         /// <param name="shapeParameters">Array of shape parameters</param>
-        /// <exception cref="TypeAccessException"></exception>
+        /// <exception cref="AssemblyOfTypeNotFoundException"><see cref="Assembly.GetAssembly"/> with shapeName as type - returns null</exception>
+        /// <exception cref="NotImplementedException">Type of shape is not implemented or missing in loaded assemblies</exception>
+        /// <exception cref="ShapeCreationException"><see cref="Extensions.TryCreateInstance"/> unable to create shape</exception> 
         public static Shape CreateShapeInstanceByNameType(string shapeName, object[] shapeParameters)
         {
             var shapeTypeAssembly = Assembly.GetAssembly(typeof(Shape));
@@ -42,7 +44,7 @@ namespace SquareCalculator.Library.Shapes
             if (concreteShapeType == default)
                 throw new NotImplementedException($"Type of {shapeName} not implemented. Or missing loaded assemblies for this type");
 
-            if (concreteShapeType.TryCreateInstance(out var createdInstance, shapeParameters) && createdInstance is Shape shapeInstance) 
+            if (!concreteShapeType.TryCreateInstance(out var createdInstance, shapeParameters) && createdInstance is Shape shapeInstance) 
                 return shapeInstance;
             
             throw new ShapeCreationException("Unable to create shape instance");
